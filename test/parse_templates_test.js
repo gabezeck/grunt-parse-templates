@@ -29,11 +29,9 @@ exports.parse_templates = {
   },
   default_options: function(test) {
     test.expect(1);
-
-    var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
+    var actual = grunt.file.read('tmp/data/templates.json');
+    var expected = grunt.file.read('test/data/templates.json');
     test.equal(actual, expected, 'should describe what the default behavior is.');
-
     test.done();
   }
 };

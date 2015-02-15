@@ -8,21 +8,24 @@
 
 module.exports = function(grunt) {
 
-    grunt.registerMultiTask('parse_templates', 'Parses directories of file for Angular templates', function() {
+    grunt.registerMultiTask('parse_templates', 'Parses directories of files for Angular templates', function() {
         var done = this.async();
         var templatedir = grunt.config.get('parse_templates.filedir'),
             datadir = grunt.config.get('parse_templates.datadir'),
-            filesArr = [];
+            catArr = [];
 
-        grunt.file.recurse(templatedir, function(abspath, rootdir, subdir, filename){
-            var fileObj = {
-                templatepath: abspath,
-                templatecat: subdir
+        grunt.file.expand({filter: 'isDirectory'}, templatedir + '*').forEach(function(val) {
+            var catObj = {
+                pageName: val.replace(/^.*[\\\/]/, '').replace(/_/g, ' ').replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); }),
+                files: []
             };
-            filesArr.push(fileObj);
+            grunt.file.recurse(val, function(rootdir){
+                catObj.files.push(rootdir);
+            });
+            catArr.push(catObj);
         });
 
-        var jsonArray = JSON.stringify(filesArr);
+        var jsonArray = JSON.stringify(catArr);
 
         grunt.file.write(datadir + 'templates.json', jsonArray);
 

@@ -1,1 +1,1 @@
-[{"templatepath":"test/fixtures/123","templatename":"123"},{"templatepath":"test/fixtures/testing","templatename":"testing"}]
+[{"pageName":"Decorative Elements","files":["test/templates/decorative_elements/rules.html"]},{"pageName":"Footers","files":["test/templates/footers/footers.html"]},{"pageName":"Headers","files":["test/templates/headers/headers.html"]}]

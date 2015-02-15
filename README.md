@@ -22,15 +22,16 @@ grunt.loadNpmTasks('grunt-parse-templates');
 ### Overview
 In your project's Gruntfile, add a section named `parse_templates` to the data object passed into `grunt.initConfig()`.
 
+The filedir property should include the relative path to your template directory. This plugin will parse all subdirectories looking for templates
+and create a JSON array of them. Each subdirectory should correlate to a page wherein the templates will appear.
+
+The datadir property should be the relative path of the directory you want to save the JSON output in. The file will be saved as templates.json.
+
 ```js
 grunt.initConfig({
   parse_templates: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+    filedir: '',
+    datadir: ''
   },
 });
 ```
