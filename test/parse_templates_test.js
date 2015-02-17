@@ -23,15 +23,13 @@ var grunt = require('grunt');
 */
 
 exports.parse_templates = {
-  setUp: function(done) {
-    // setup here if necessary
-    done();
-  },
-  default_options: function(test) {
-    test.expect(1);
-    var actual = grunt.file.read('tmp/data/templates.json');
-    var expected = grunt.file.read('test/data/templates.json');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
-    test.done();
-  }
+    setUp: function(done) {
+        done();
+    },
+    test_options: function(test) {
+        test.expect(1);
+        var expected = grunt.file.readJSON('test/data/templates.json');
+        test.ok(expected, 'The JSON output is malformed or non-existent. Please make sure you specified the correct directories.');
+        test.done();
+    }
 };

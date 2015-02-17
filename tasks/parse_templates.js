@@ -22,21 +22,20 @@ module.exports = function(grunt) {
         grunt.file.expand({filter: 'isDirectory'}, templatedir + '*').forEach(function(val) {
 
             var catObj = {
-                pageName: manString(val),
-                sections: []
+                sectionName: manString(val),
+                pages: []
             };
-
             grunt.file.expand({filter: 'isDirectory'}, val + '/*').forEach(function(subdir,i) {
 
-                catObj.sections[i] = {
-                    sectionName: "",
+                catObj.pages[i] = {
+                    pageName: "",
                     files: []
                 };
 
                 grunt.file.recurse(subdir, function (rootdir) {
                     var dirSegs = rootdir.split('/');
-                    catObj.sections[i].sectionName = manString(dirSegs[dirSegs.length - 2]);
-                    catObj.sections[i].files.push(rootdir);
+                    catObj.pages[i].pageName = manString(dirSegs[dirSegs.length - 2]);
+                    catObj.pages[i].files.push(rootdir);
                 });
 
             });
