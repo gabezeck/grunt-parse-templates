@@ -12,8 +12,11 @@ module.exports = function(grunt) {
 
         var done = this.async();
 
-        var templatedir = grunt.config.get('parse_templates.filedir'),
-            datadir = grunt.config.get('parse_templates.datadir'),
+        var templatedir = grunt.config.get('parse_templates.fileDir'),
+            dataDir = grunt.config.get('parse_templates.dataDir'),
+            configDir = grunt.config.get('parse_templates.configDir'),
+            appName = grunt.config.get('parse_templates.appName'),
+            templateLoc = grunt.config.get('parse_templates.baseTemplate'),
             catArr = [],
             nameString = function(string){
                return string.replace(/^.*[\\\/]/, '').replace(/_/g, ' ').replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
@@ -49,9 +52,11 @@ module.exports = function(grunt) {
 
         });
 
-        var jsonArray = JSON.stringify(catArr);
+        var jsonArray = JSON.stringify(catArr),
+            appConfig = appName + '.config([\'$stateProvider\', function ($stateProvider) { var appData = '+ jsonArray +'; angular.forEach(appData, function(value) { angular.forEach(value.pages, function(pages) { $stateProvider.state(pages.pageUrl, {url: \'/\' + value.urlString + \'/\' + pages.pageUrl, templateUrl: \'' + templateLoc + '\', controller: function($scope) { $scope.filesArr = pages.files; }});});});}]);';
 
-        grunt.file.write(datadir + 'templates.json', jsonArray);
+        grunt.file.write(dataDir + 'templates.js', jsonArray);
+        grunt.file.write(configDir + 'config.js', appConfig);
 
         done();
 

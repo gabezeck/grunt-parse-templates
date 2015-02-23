@@ -23,25 +23,36 @@ This plugin is part of a larger project to create an Angular-based style guide /
 The end goal is to be able to create a fully functional guide by simply dropping Angular templates representing style blocks
 into a folder structure.
 
+The result of running this task is an Angular config file that sets up basic routing for the application.
+
 ### Overview
 In your project's Gruntfile, add a section named `parse_templates` to the data object passed into `grunt.initConfig()`.
 
-The filedir property should include the relative path to your template directory. This plugin will parse all subdirectories looking for templates
+The fileDir property should include the relative path to your template directory. This plugin will parse all subdirectories looking for templates
 and create a JSON array of them.
 
 The directory structure is important here and should look like this:
 
-filedir > page folder > section folders > files
+fileDir > page folder > section folders > files
 
 Each page folder will correspond to an application page. Each section folder beneath that will be a section on that page with a header and each file will be a subsection beneath that.
 
-The datadir property should be the relative path of the directory you want to save the JSON output in. The file will be saved as templates.json.
+The dataDir property should be the relative path of the directory you want to save the JSON output in. The file will be saved as templates.json.
+
+The configDir should point to the location for your Angular application config.
+
+The appName property should be the name of your Angular application (as defined in the app.js).
+
+The baseTemplate property should point to the template file which will generate your style guide.
 
 ```js
 grunt.initConfig({
   parse_templates: {
-    filedir: '',
-    datadir: ''
+    fileDir: '',
+    dataDir: '',
+    configDir: '',
+    appName: '',
+    baseTemplate: ''
   },
 });
 ```

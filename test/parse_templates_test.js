@@ -28,8 +28,8 @@ exports.parse_templates = {
     },
     test_options: function(test) {
         test.expect(1);
-        var expected = grunt.file.readJSON('test/data/templates.json');
-        test.ok(expected, 'The JSON output is malformed or non-existent. Please make sure you specified the correct directories.');
+        var expected = grunt.file.read('test/data/config.js');
+        test.ok(expected, 'The JS output is malformed or non-existent. Please make sure you specified the correct directories.');
         test.done();
     }
 };

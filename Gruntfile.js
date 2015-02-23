@@ -30,8 +30,15 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     parse_templates: {
-        filedir: 'test/templates/',
-        datadir: 'test/data/'
+        fileDir: 'test/templates/',
+        dataDir: 'test/data/',
+        configDir: 'test/data/',
+        appName: 'StyleGuideApp',
+        baseTemplate: 'test/templates/template.html'
+    },
+
+    "jsbeautifier" : {
+      files : ["test/data/*.js"]
     },
 
     // Unit tests.
@@ -48,10 +55,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-jsbeautifier');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'parse_templates', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'parse_templates', 'jsbeautifier', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
