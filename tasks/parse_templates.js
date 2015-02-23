@@ -55,7 +55,7 @@ module.exports = function(grunt) {
         var jsonArray = JSON.stringify(catArr),
             appConfig = appName + '.config([\'$stateProvider\', function ($stateProvider) { var appData = '+ jsonArray +'; angular.forEach(appData, function(value) { angular.forEach(value.pages, function(pages) { $stateProvider.state(pages.pageUrl, {url: \'/\' + value.urlString + \'/\' + pages.pageUrl, templateUrl: \'' + templateLoc + '\', controller: function($scope) { $scope.filesArr = pages.files; }});});});}]);';
 
-        grunt.file.write(dataDir + 'templates.js', jsonArray);
+        grunt.file.write(dataDir + 'templates.json', jsonArray);
         grunt.file.write(configDir + 'config.js', appConfig);
 
         done();
