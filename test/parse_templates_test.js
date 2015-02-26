@@ -23,13 +23,11 @@ var grunt = require('grunt');
 */
 
 exports.parse_templates = {
-    setUp: function(done) {
-        done();
-    },
     test_options: function(test) {
         test.expect(1);
-        var expected = grunt.file.read('test/data/config.js');
-        test.ok(expected, 'The JS output is malformed or non-existent. Please make sure you specified the correct directories.');
+        var expected = grunt.file.read('test/data/config.js'),
+            actual = grunt.file.read('tmp/config.js');
+        test.equal(actual, expected, 'The JS output is malformed or non-existent. You likely forgot to include some required options in your config.');
         test.done();
     }
 };

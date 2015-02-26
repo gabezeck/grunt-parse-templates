@@ -31,15 +31,15 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     parse_templates: {
         fileDir: 'test/templates/',
-        dataDir: 'test/data/',
-        configDir: 'test/data/',
+        configDir: 'tmp/',
         appName: 'StyleGuideApp',
-        baseTemplate: 'test/templates/template.html',
-        controllerName: 'testController'
+        baseTemplate: 'test/templates/base.html',
+        pageController: 'pageController',
+        sectionController: 'sectionController'
     },
 
     "jsbeautifier" : {
-      files : ["test/data/*.js"]
+      files : ["tmp/*.js"]
     },
 
     // Unit tests.

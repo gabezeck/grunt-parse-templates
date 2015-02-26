@@ -8,17 +8,19 @@
 
 module.exports = function(grunt) {
 
-    grunt.registerMultiTask('parse_templates', 'Parses directories of files for Angular templates', function() {
+    grunt.registerTask('parse_templates', 'Parses directories of files for Angular templates', function() {
 
         var done = this.async();
 
         var templatedir = grunt.config.get('parse_templates.fileDir'),
-            dataDir = grunt.config.get('parse_templates.dataDir'),
             configDir = grunt.config.get('parse_templates.configDir'),
             appName = grunt.config.get('parse_templates.appName'),
-            templateLoc = grunt.config.get('parse_templates.baseTemplate'),
-            controllerName = grunt.config.get('parse_templates.controllerName'),
-            catArr = [],
+            baseTemplate = grunt.config.get('parse_templates.baseTemplate'),
+            pageController = grunt.config.get('parse_templates.pageController'),
+            sectionController = grunt.config.get('parse_templates.sectionController'),
+            appData = {
+                sections: []
+            },
             nameString = function(string){
                return string.replace(/^.*[\\\/]/, '').replace(/_/g, ' ').replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
             };
@@ -29,8 +31,18 @@ module.exports = function(grunt) {
                 catObj = {
                     sectionName: nameString(val),
                     urlString: urlSegs[urlSegs.length - 1],
+                    sectionTemplate: baseTemplate,
+                    pageTemplate: baseTemplate,
                     pages: []
                 };
+
+            grunt.file.expand({filter: 'isFile'}, val + '/*.html').forEach(function(template) {
+                if (template.indexOf('section') !== -1) {
+                    catObj.sectionTemplate = template;
+                } else if (template.indexOf('page') !== -1) {
+                    catObj.pageTemplate = template;
+                }
+            });
 
             grunt.file.expand({filter: 'isDirectory'}, val + '/*').forEach(function(subdir,i) {
 
@@ -49,14 +61,13 @@ module.exports = function(grunt) {
 
             });
 
-            catArr.push(catObj);
+            appData.sections.push(catObj);
 
         });
 
-        var jsonArray = JSON.stringify(catArr),
-            appConfig = appName + '.config([\'$stateProvider\', function ($stateProvider) { var appData = '+ jsonArray +'; angular.forEach(appData, function(value) { angular.forEach(value.pages, function(pages) { $stateProvider.state(pages.pageUrl, {url: \'/\' + value.urlString + \'/\' + pages.pageUrl, templateUrl: \'' + templateLoc + '\', controller: \'' + controllerName + '\', resolve : { templateData : function() {return { templates : pages.files } } }});});});}]);';
+        var jsonArray = JSON.stringify(appData),
+            appConfig = appName + '.config([\'$stateProvider\', function ($stateProvider) { var appData = '+ jsonArray +'; angular.forEach(appData.sections, function(sections) { $stateProvider.state(sections.urlString, { url: \'/\' + sections.urlString, templateUrl: sections.sectionTemplate, controller: \'' + sectionController + '\' }); angular.forEach(appData.sections.pages, function(pages) { $stateProvider.state(pages.pageUrl, {url: \'/\' + sections.urlString + \'/\' + pages.pageUrl, templateUrl: sections.pageTemplate, controller: \'' + pageController + '\', resolve : { templateData : function() {return { templates : pages.files, pageName: pages.pageName } } }});});});}]);';
 
-        grunt.file.write(dataDir + 'templates.json', jsonArray);
         grunt.file.write(configDir + 'config.js', appConfig);
 
         done();
