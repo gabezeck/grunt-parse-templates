@@ -33,7 +33,9 @@ module.exports = function(grunt) {
         fileDir: 'test/templates/',
         configDir: 'tmp/',
         appName: 'StyleGuideApp',
-        baseTemplate: 'test/templates/base.html'
+        baseTemplate: 'test/templates/base.html',
+        pageController: 'pageController',
+        sectionController: 'sectionController'
     },
 
     "jsbeautifier" : {

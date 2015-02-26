@@ -43,12 +43,22 @@ StyleGuideApp.config(['$stateProvider', 'appData', function($stateProvider, appD
     angular.forEach(appData.sections, function(sections, i) {
         $stateProvider.state(sections.urlString, {
             url: '/' + sections.urlString,
-            templateUrl: sections.sectionTemplate
+            templateUrl: sections.sectionTemplate,
+            controller: 'sectionController'
         });
         angular.forEach(appData.sections[i].pages, function(pages) {
             $stateProvider.state(pages.pageUrl, {
                 url: '/' + sections.urlString + '/' + pages.pageUrl,
-                templateUrl: sections.pageTemplate
+                templateUrl: sections.pageTemplate,
+                controller: 'pageController',
+                resolve: {
+                    templateData: function() {
+                        return {
+                            templates: pages.files,
+                            pageName: pages.pageName
+                        }
+                    }
+                }
             });
         });
     });
