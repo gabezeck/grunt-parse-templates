@@ -66,7 +66,7 @@ module.exports = function(grunt) {
         });
 
         var jsonArray = JSON.stringify(appData),
-            appConfig = appName + '.config([\'$stateProvider\', function ($stateProvider) { var appData = '+ jsonArray +'; angular.forEach(appData.sections, function(sections) { $stateProvider.state(sections.urlString, { url: \'/\' + sections.urlString, templateUrl: sections.sectionTemplate, controller: \'' + sectionController + '\' }); angular.forEach(appData.sections.pages, function(pages) { $stateProvider.state(pages.pageUrl, {url: \'/\' + sections.urlString + \'/\' + pages.pageUrl, templateUrl: sections.pageTemplate, controller: \'' + pageController + '\', resolve : { templateData : function() {return { templates : pages.files, pageName: pages.pageName } } }});});});}]);';
+            appConfig = appName + '.config([\'$stateProvider\', function ($stateProvider) { var appData = '+ jsonArray +'; angular.forEach(appData.sections, function(sections,i) { $stateProvider.state(sections.urlString, { url: \'/\' + sections.urlString, templateUrl: sections.sectionTemplate, controller: \'' + sectionController + '\' }); angular.forEach(appData.sections[i].pages, function(pages) { $stateProvider.state(pages.pageUrl, {url: \'/\' + sections.urlString + \'/\' + pages.pageUrl, templateUrl: sections.pageTemplate, controller: \'' + pageController + '\', resolve : { templateData : function() {return { templates : pages.files, pageName: pages.pageName } } }});});});}]);';
 
         grunt.file.write(configDir + 'config.js', appConfig);
 
