@@ -23,6 +23,9 @@ module.exports = function(grunt) {
             },
             nameString = function(string){
                return string.replace(/^.*[\\\/]/, '').replace(/_/g, ' ').replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+            },
+            urlString = function(string) {
+                return string.replace('_','-');
             };
 
         grunt.file.expand({filter: 'isDirectory'}, templatedir + '*').forEach(function(val) {
@@ -30,7 +33,7 @@ module.exports = function(grunt) {
             var urlSegs = val.split('/'),
                 catObj = {
                     sectionName: nameString(val),
-                    urlString: urlSegs[urlSegs.length - 1],
+                    urlString: urlString(urlSegs[urlSegs.length - 1]),
                     sectionTemplate: baseTemplate,
                     pageTemplate: baseTemplate,
                     pages: []
@@ -55,7 +58,7 @@ module.exports = function(grunt) {
                 grunt.file.recurse(subdir, function (rootdir) {
                     var dirSegs = rootdir.split('/');
                     catObj.pages[i].pageName = nameString(dirSegs[dirSegs.length - 2]);
-                    catObj.pages[i].pageUrl = dirSegs[dirSegs.length - 2];
+                    catObj.pages[i].pageUrl = urlString(dirSegs[dirSegs.length - 2]);
                     catObj.pages[i].files.push(rootdir);
                 });
 
