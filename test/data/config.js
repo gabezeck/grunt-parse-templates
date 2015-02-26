@@ -29,13 +29,13 @@ StyleGuideApp.constant('appData', {
         "sectionTemplate": "test/templates/modules/section.html",
         "pageTemplate": "test/templates/modules/page.html",
         "pages": [{
+            "pageName": "Application Headers",
+            "pageUrl": "application-headers",
+            "files": ["test/templates/modules/application_headers/headers.html"]
+        }, {
             "pageName": "Boxes",
             "pageUrl": "boxes",
             "files": ["test/templates/modules/boxes/base-boxes.html", "test/templates/modules/boxes/metric-boxes.html"]
-        }, {
-            "pageName": "Forms",
-            "pageUrl": "forms",
-            "files": ["test/templates/modules/forms/headers.html"]
         }]
     }]
 });
