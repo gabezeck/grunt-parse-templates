@@ -1,7 +1,7 @@
 {
   "name": "grunt-parse-templates",
   "description": "Parser for Angular style guide templates",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "homepage": "https://github.com/gzeck/grunt-parse-templates",
   "author": {
     "name": "Gabriel Zeck",

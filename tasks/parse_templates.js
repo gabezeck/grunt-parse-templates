@@ -32,7 +32,7 @@ module.exports = function(grunt) {
             var urlSegs = val.split('/'),
                 catObj = {
                     sectionName: nameString(val),
-                    urlString: urlString(urlSegs[urlSegs.length - 1]),
+                    parentState: urlString(urlSegs[urlSegs.length - 1]),
                     sectionTemplate: baseTemplate,
                     pageTemplate: baseTemplate,
                     pages: []
@@ -50,14 +50,16 @@ module.exports = function(grunt) {
 
                 catObj.pages[i] = {
                     pageName: "",
-                    pageUrl: "",
+                    childState: "",
+                    childStateUrlSeg: "",
                     files: []
                 };
 
                 grunt.file.recurse(subdir, function (rootdir) {
                     var dirSegs = rootdir.split('/');
                     catObj.pages[i].pageName = nameString(dirSegs[dirSegs.length - 2]);
-                    catObj.pages[i].pageUrl = urlString(dirSegs[dirSegs.length - 2]);
+                    catObj.pages[i].childState = catObj.parentState + '.' + urlString(dirSegs[dirSegs.length - 2]);
+                    catObj.pages[i].childStateUrlSeg = urlString(dirSegs[dirSegs.length - 2]);
                     catObj.pages[i].files.push(rootdir);
                 });
 
@@ -68,7 +70,7 @@ module.exports = function(grunt) {
         });
 
         var jsonArray = JSON.stringify(appData),
-            appConfig = 'StyleGuideApp.constant(\'appData\', ' + jsonArray + ');' + appName + '.config([\'$stateProvider\', \'appData\', function ($stateProvider, appData) { angular.forEach(appData.sections, function(sections,i) { $stateProvider.state(sections.urlString, { url: \'/\' + sections.urlString, templateUrl: sections.sectionTemplate, controller: \'' + appController + '\' }); angular.forEach(appData.sections[i].pages, function(pages) { $stateProvider.state(pages.pageUrl, {url: \'/\' + sections.urlString + \'/\' + pages.pageUrl, templateUrl: sections.pageTemplate, controller: \'' + appController + '\', resolve : { templateData : function() {return { templates : pages.files, pageName: pages.pageName } } }});});});}]);';
+            appConfig = 'StyleGuideApp.constant(\'appData\', ' + jsonArray + ');' + appName + '.config([\'$stateProvider\', \'appData\', function ($stateProvider, appData) { angular.forEach(appData.sections, function(sections,i) { $stateProvider.state(sections.parentState, { url: \'/\' + sections.parentState, templateUrl: sections.sectionTemplate, controller: \'' + appController + '\' }); angular.forEach(appData.sections[i].pages, function(pages) { $stateProvider.state(pages.childState, {url: \'/\' + sections.parentState + \'/\' + pages.childStateUrlSeg, templateUrl: sections.pageTemplate, controller: \'' + appController + '\', resolve : { templateData : function() {return { templates : pages.files, pageName: pages.pageName } } }});});});}]);';
 
         grunt.file.write(configDir + 'config.js', appConfig);
 
