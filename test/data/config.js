@@ -49,7 +49,15 @@ StyleGuideApp.config(['$stateProvider', 'appData', function($stateProvider, appD
         $stateProvider.state(sections.parentState, {
             url: '/' + sections.parentState,
             templateUrl: sections.sectionTemplate,
-            controller: 'TestController'
+            controller: 'TestController',
+            resolve: {
+                sectionData: function() {
+                    return {
+                        sectionName: sections.sectionName,
+                        sectionPages: sections.pages
+                    }
+                }
+            }
         });
         angular.forEach(appData.sections[i].pages, function(pages) {
             $stateProvider.state(pages.childState, {
@@ -59,7 +67,7 @@ StyleGuideApp.config(['$stateProvider', 'appData', function($stateProvider, appD
                         templateUrl: sections.pageTemplate,
                         controller: 'TestController',
                         resolve: {
-                            templateData: function() {
+                            pageData: function() {
                                 return {
                                     templates: pages.files,
                                     pageName: pages.pageName
