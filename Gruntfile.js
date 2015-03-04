@@ -33,7 +33,8 @@ module.exports = function(grunt) {
         fileDir: 'test/templates/',
         configDir: 'tmp/',
         appName: 'StyleGuideApp',
-        baseTemplate: 'test/templates/base.html',
+        basePageTemplate: 'test/templates/page.html',
+        baseSectionTemplate: 'test/templates/section.html',
         appController: 'TestController'
     },
 

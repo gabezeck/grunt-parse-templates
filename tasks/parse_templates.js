@@ -15,7 +15,8 @@ module.exports = function(grunt) {
         var templatedir = grunt.config.get('parse_templates.fileDir'),
             configDir = grunt.config.get('parse_templates.configDir'),
             appName = grunt.config.get('parse_templates.appName'),
-            baseTemplate = grunt.config.get('parse_templates.baseTemplate'),
+            baseSectionTemplate = grunt.config.get('parse_templates.baseSectionTemplate'),
+            basePageTemplate = grunt.config.get('parse_templates.basePageTemplate'),
             appController = grunt.config.get('parse_templates.appController'),
             appData = {
                 sections: []
@@ -33,8 +34,8 @@ module.exports = function(grunt) {
                 catObj = {
                     sectionName: nameString(val),
                     parentState: urlString(urlSegs[urlSegs.length - 1]),
-                    sectionTemplate: baseTemplate,
-                    pageTemplate: baseTemplate,
+                    sectionTemplate: baseSectionTemplate,
+                    pageTemplate: basePageTemplate,
                     pages: []
                 };
 

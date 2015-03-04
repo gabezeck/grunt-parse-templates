@@ -2,7 +2,7 @@ StyleGuideApp.constant('appData', {
     "sections": [{
         "sectionName": "Components",
         "parentState": "components",
-        "sectionTemplate": "test/templates/base.html",
+        "sectionTemplate": "test/templates/section.html",
         "pageTemplate": "test/templates/components/page.html",
         "pages": [{
             "pageName": "Buttons",
