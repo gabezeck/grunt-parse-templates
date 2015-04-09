@@ -37,6 +37,7 @@ module.exports = function(grunt) {
                     parentState: urlString(urlSegs[urlSegs.length - 1]),
                     sectionTemplate: baseSectionTemplate,
                     pageTemplate: basePageTemplate,
+                    sectionMeta: null,
                     pages: []
                 };
 
@@ -46,6 +47,10 @@ module.exports = function(grunt) {
                 } else if (template.indexOf('page') !== -1) {
                     catObj.pageTemplate = template;
                 }
+            });
+
+            grunt.file.expand({filter: 'isFile'}, val + '/section-meta.json').forEach(function(meta) {
+                catObj.sectionMeta = meta;
             });
 
             grunt.file.expand({filter: 'isDirectory'}, val + '/*').forEach(function(subdir,i) {

@@ -4,6 +4,7 @@ StyleGuideApp.constant('appData', {
         "parentState": "components",
         "sectionTemplate": "test/templates/section.html",
         "pageTemplate": "test/templates/components/page.html",
+        "sectionMeta": "test/templates/components/section-meta.json",
         "pages": [{
             "pageName": "Buttons",
             "childState": "components.buttons",
@@ -20,6 +21,7 @@ StyleGuideApp.constant('appData', {
         "parentState": "layouts",
         "sectionTemplate": "test/templates/layouts/section.html",
         "pageTemplate": "test/templates/layouts/page.html",
+        "sectionMeta": "test/templates/layouts/section-meta.json",
         "pages": [{
             "pageName": "Profile",
             "childState": "layouts.profile",
@@ -31,6 +33,7 @@ StyleGuideApp.constant('appData', {
         "parentState": "modules",
         "sectionTemplate": "test/templates/modules/section.html",
         "pageTemplate": "test/templates/modules/page.html",
+        "sectionMeta": "test/templates/modules/section-meta.json",
         "pages": [{
             "pageName": "Application Headers",
             "childState": "modules.application-headers",
