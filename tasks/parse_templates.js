@@ -49,9 +49,7 @@ module.exports = function(grunt) {
                 }
             });
 
-            grunt.file.expand({filter: 'isFile'}, val + '/section-meta.json').forEach(function(meta) {
-                catObj.sectionMeta = meta;
-            });
+            catObj.sectionMeta = grunt.file.readJSON(val + '/section-meta.json');
 
             grunt.file.expand({filter: 'isDirectory'}, val + '/*').forEach(function(subdir,i) {
 
