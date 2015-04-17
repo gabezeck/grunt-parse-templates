@@ -25,8 +25,8 @@ var grunt = require('grunt');
 exports.parse_templates = {
     test_options: function(test) {
         test.expect(1);
-        var expected = grunt.file.read('test/data/app.js'),
-            actual = grunt.file.read('tmp/app.js');
+        var expected = grunt.file.read('test/data/config.js'),
+            actual = grunt.file.read('tmp/config.js');
         test.equal(actual, expected, 'The JS output is malformed or non-existent. You likely forgot to include some required options in your config.');
         test.done();
     }

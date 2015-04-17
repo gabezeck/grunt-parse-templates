@@ -77,7 +77,7 @@ module.exports = function(grunt) {
         var jsonArray = JSON.stringify(appData),
             appConfig = appName + '.constant(\'appData\', ' + jsonArray + ');' + appName + '.config([\'$stateProvider\', \'appData\', function ($stateProvider, appData) { angular.forEach(appData.sections, function(sections,i) { $stateProvider.state(sections.parentState, { url: \'/\' + sections.parentState, templateUrl: sections.sectionTemplate, controller: \'' + sectionController + '\', resolve: { sectionData: function() { return { sectionName: sections.sectionName, sectionPages: sections.pages }}}}); angular.forEach(appData.sections[i].pages, function(pages) { $stateProvider.state(pages.childState, {url: \'/\' + pages.childStateUrlSeg, views: { \'@\': { templateUrl: sections.pageTemplate, controller: \'' + pageController + '\', resolve: { pageData: function() { return { templates: pages.files, pageName: pages.pageName }}}}}});});});}]);';
 
-        grunt.file.write(configDir + 'app.js', appConfig);
+        grunt.file.write(configDir + 'config.js', appConfig);
 
         done();
 
