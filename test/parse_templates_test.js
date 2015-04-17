@@ -22,7 +22,7 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
-exports.parse_templates = {
+exports.parsetemplates = {
     test_options: function(test) {
         test.expect(1);
         var expected = grunt.file.read('test/data/config.js'),

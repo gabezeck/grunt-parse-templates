@@ -17,7 +17,7 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-parse-templates');
 ```
 
-## The "parse_templates" task
+## The "parsetemplates" task
 
 This plugin is part of a larger project to create an Angular-based style guide / pattern library generator.
 The end goal is to be able to create a fully functional guide by simply dropping Angular templates representing style blocks
@@ -26,7 +26,7 @@ into a folder structure.
 The result of running this task is an Angular config file that sets up basic routing for the application.
 
 ### Overview
-In your project's Gruntfile, add a section named `parse_templates` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `parsetemplates` to the data object passed into `grunt.initConfig()`.
 
 The fileDir property should include the relative path to your template directory. This plugin will parse all subdirectories looking for templates
 and create a JSON array of them.
@@ -47,7 +47,7 @@ The baseTemplate property should point to the template file which will generate 
 
 ```js
 grunt.initConfig({
-  parse_templates: {
+  parsetemplates: {
     fileDir: '',
     dataDir: '',
     configDir: '',

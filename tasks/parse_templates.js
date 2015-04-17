@@ -8,17 +8,17 @@
 
 module.exports = function(grunt) {
 
-    grunt.registerTask('parse_templates', 'Parses directories of files for Angular templates', function() {
+    grunt.registerTask('parsetemplates', 'Parses directories of files for Angular templates', function() {
 
         var done = this.async();
 
-        var templatedir = grunt.config.get('parse_templates.fileDir'),
-            configDir = grunt.config.get('parse_templates.configDir'),
-            appName = grunt.config.get('parse_templates.appName'),
-            baseSectionTemplate = grunt.config.get('parse_templates.baseSectionTemplate'),
-            basePageTemplate = grunt.config.get('parse_templates.basePageTemplate'),
-            sectionController = grunt.config.get('parse_templates.sectionController'),
-            pageController = grunt.config.get('parse_templates.pageController'),
+        var templatedir = grunt.config.get('parsetemplates.fileDir'),
+            configDir = grunt.config.get('parsetemplates.configDir'),
+            appName = grunt.config.get('parsetemplates.appName'),
+            baseSectionTemplate = grunt.config.get('parsetemplates.baseSectionTemplate'),
+            basePageTemplate = grunt.config.get('parsetemplates.basePageTemplate'),
+            sectionController = grunt.config.get('parsetemplates.sectionController'),
+            pageController = grunt.config.get('parsetemplates.pageController'),
             appData = {
                 sections: []
             },
