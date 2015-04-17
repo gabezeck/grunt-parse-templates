@@ -1,4 +1,5 @@
-StyleGuideApp.constant('appData', {
+'use strict';
+angular.module('StyleGuideApp').constant('appData', {
     "sections": [{
         "sectionName": "Components",
         "parentState": "components",
@@ -55,8 +56,7 @@ StyleGuideApp.constant('appData', {
             "files": ["test/templates/modules/boxes/base-boxes.html", "test/templates/modules/boxes/metric-boxes.html"]
         }]
     }]
-});
-StyleGuideApp.config(['$stateProvider', 'appData', function($stateProvider, appData) {
+}).config(['$stateProvider', 'appData', function($stateProvider, appData) {
     angular.forEach(appData.sections, function(sections, i) {
         $stateProvider.state(sections.parentState, {
             url: '/' + sections.parentState,
