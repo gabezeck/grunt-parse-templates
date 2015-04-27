@@ -30,8 +30,8 @@ module.exports = function(grunt) {
                 return string.replace('_','-');
             },
             shortenUrlArray = function(arr){
-                arr.splice(0,remSegs).join('/');
-                return arr;
+                arr.splice(0,remSegs);
+                return arr.join('/');
             };
         if (grunt.config.get('parsetemplates.remSegs')) {
             remSegs = grunt.config.get('parsetemplates.remSegs');
