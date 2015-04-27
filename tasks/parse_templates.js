@@ -12,7 +12,8 @@ module.exports = function(grunt) {
 
         var done = this.async();
 
-        var templatedir = grunt.config.get('parsetemplates.fileDir'),
+        var remSegs = null,
+            templatedir = grunt.config.get('parsetemplates.fileDir'),
             configDir = grunt.config.get('parsetemplates.configDir'),
             appName = grunt.config.get('parsetemplates.appName'),
             baseSectionTemplate = grunt.config.get('parsetemplates.baseSectionTemplate'),
@@ -27,7 +28,14 @@ module.exports = function(grunt) {
             },
             urlString = function(string) {
                 return string.replace('_','-');
+            },
+            shortenUrlArray = function(arr){
+                arr.splice(0,remSegs).join('/');
+                return arr;
             };
+        if (grunt.config.get('parsetemplates.remSegs')) {
+            remSegs = grunt.config.get('parsetemplates.remSegs');
+        }
 
         grunt.file.expand({filter: 'isDirectory'}, templatedir + '*').forEach(function(val) {
 
@@ -42,6 +50,10 @@ module.exports = function(grunt) {
                 };
 
             grunt.file.expand({filter: 'isFile'}, val + '/*.html').forEach(function(template) {
+                if (remSegs != null) {
+                    var tempArr = template.split('/');
+                    template = shortenUrlArray(tempArr);
+                }
                 if (template.indexOf('section') !== -1) {
                     catObj.sectionTemplate = template;
                 } else if (template.indexOf('page') !== -1) {
@@ -62,6 +74,9 @@ module.exports = function(grunt) {
 
                 grunt.file.recurse(subdir, function (rootdir) {
                     var dirSegs = rootdir.split('/');
+                    if (remSegs != null) {
+                        rootdir = shortenUrlArray(dirSegs);
+                    }
                     catObj.pages[i].pageName = nameString(dirSegs[dirSegs.length - 2]);
                     catObj.pages[i].childState = catObj.parentState + '.' + urlString(dirSegs[dirSegs.length - 2]);
                     catObj.pages[i].childStateUrlSeg = urlString(dirSegs[dirSegs.length - 2]);

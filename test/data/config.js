@@ -4,7 +4,7 @@ angular.module('StyleGuideApp').constant('appData', {
         "sectionName": "Components",
         "parentState": "components",
         "sectionTemplate": "test/templates/section.html",
-        "pageTemplate": "test/templates/components/page.html",
+        "pageTemplate": "test/templates/page.html",
         "sectionMeta": {
             "menuOrder": 0,
             "menuIcon": "/YOUR/ICON/HERE"
@@ -13,18 +13,22 @@ angular.module('StyleGuideApp').constant('appData', {
             "pageName": "Buttons",
             "childState": "components.buttons",
             "childStateUrlSeg": "buttons",
-            "files": ["test/templates/components/buttons/buttons.html"]
+            "files": [
+                ["templates", "components", "buttons", "buttons.html"]
+            ]
         }, {
             "pageName": "Footers",
             "childState": "components.footers",
             "childStateUrlSeg": "footers",
-            "files": ["test/templates/components/footers/footers.html"]
+            "files": [
+                ["templates", "components", "footers", "footers.html"]
+            ]
         }]
     }, {
         "sectionName": "Layouts",
         "parentState": "layouts",
-        "sectionTemplate": "test/templates/layouts/section.html",
-        "pageTemplate": "test/templates/layouts/page.html",
+        "sectionTemplate": "test/templates/section.html",
+        "pageTemplate": "test/templates/page.html",
         "sectionMeta": {
             "menuOrder": 2,
             "menuIcon": "/YOUR/ICON/HERE"
@@ -33,13 +37,15 @@ angular.module('StyleGuideApp').constant('appData', {
             "pageName": "Profile",
             "childState": "layouts.profile",
             "childStateUrlSeg": "profile",
-            "files": ["test/templates/layouts/profile/profile-image.html"]
+            "files": [
+                ["templates", "layouts", "profile", "profile-image.html"]
+            ]
         }]
     }, {
         "sectionName": "Modules",
         "parentState": "modules",
-        "sectionTemplate": "test/templates/modules/section.html",
-        "pageTemplate": "test/templates/modules/page.html",
+        "sectionTemplate": "test/templates/section.html",
+        "pageTemplate": "test/templates/page.html",
         "sectionMeta": {
             "menuOrder": 1,
             "menuIcon": "/YOUR/ICON/HERE"
@@ -48,12 +54,17 @@ angular.module('StyleGuideApp').constant('appData', {
             "pageName": "Application Headers",
             "childState": "modules.application-headers",
             "childStateUrlSeg": "application-headers",
-            "files": ["test/templates/modules/application_headers/headers.html"]
+            "files": [
+                ["templates", "modules", "application_headers", "headers.html"]
+            ]
         }, {
             "pageName": "Boxes",
             "childState": "modules.boxes",
             "childStateUrlSeg": "boxes",
-            "files": ["test/templates/modules/boxes/base-boxes.html", "test/templates/modules/boxes/metric-boxes.html"]
+            "files": [
+                ["templates", "modules", "boxes", "base-boxes.html"],
+                ["templates", "modules", "boxes", "metric-boxes.html"]
+            ]
         }]
     }]
 }).config(['$stateProvider', 'appData', function($stateProvider, appData) {

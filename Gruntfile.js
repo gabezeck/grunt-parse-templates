@@ -31,6 +31,7 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     parsetemplates: {
         fileDir: 'test/templates/',
+        remSegs: 1,
         configDir: 'tmp/',
         appName: 'StyleGuideApp',
         basePageTemplate: 'test/templates/page.html',
