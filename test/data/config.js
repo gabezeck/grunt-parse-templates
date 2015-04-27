@@ -3,7 +3,7 @@ angular.module('StyleGuideApp').constant('appData', {
     "sections": [{
         "sectionName": "Components",
         "parentState": "components",
-        "sectionTemplate": "test/templates/section.html",
+        "sectionTemplate": "templates/section.html",
         "pageTemplate": "templates/components/page.html",
         "sectionMeta": {
             "menuOrder": 0,

@@ -29,9 +29,14 @@ module.exports = function(grunt) {
             urlString = function(string) {
                 return string.replace('_','-');
             },
-            shortenUrlArray = function(arr){
-                arr.splice(0,remSegs);
-                return arr.join('/');
+            shortenUrl= function(str){
+                if (remSegs != null) {
+                    var arr = str.split('/');
+                    arr.splice(0, remSegs);
+                    return arr.join('/');
+                } else {
+                    return str;
+                }
             };
         if (grunt.config.get('parsetemplates.remSegs')) {
             remSegs = grunt.config.get('parsetemplates.remSegs');
@@ -43,17 +48,14 @@ module.exports = function(grunt) {
                 catObj = {
                     sectionName: nameString(val),
                     parentState: urlString(urlSegs[urlSegs.length - 1]),
-                    sectionTemplate: baseSectionTemplate,
-                    pageTemplate: basePageTemplate,
+                    sectionTemplate: shortenUrl(baseSectionTemplate),
+                    pageTemplate: shortenUrl(basePageTemplate),
                     sectionMeta: null,
                     pages: []
                 };
 
             grunt.file.expand({filter: 'isFile'}, val + '/*.html').forEach(function(template) {
-                if (remSegs != null) {
-                    var tempArr = template.split('/');
-                    template = shortenUrlArray(tempArr);
-                }
+                template = shortenUrl(template);
                 if (template.indexOf('section') !== -1) {
                     catObj.sectionTemplate = template;
                 } else if (template.indexOf('page') !== -1) {
@@ -74,9 +76,7 @@ module.exports = function(grunt) {
 
                 grunt.file.recurse(subdir, function (rootdir) {
                     var dirSegs = rootdir.split('/');
-                    if (remSegs != null) {
-                        rootdir = shortenUrlArray(dirSegs);
-                    }
+                    rootdir = shortenUrl(rootdir);
                     catObj.pages[i].pageName = nameString(dirSegs[dirSegs.length - 2]);
                     catObj.pages[i].childState = catObj.parentState + '.' + urlString(dirSegs[dirSegs.length - 2]);
                     catObj.pages[i].childStateUrlSeg = urlString(dirSegs[dirSegs.length - 2]);
